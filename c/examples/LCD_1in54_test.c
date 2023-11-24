@@ -39,13 +39,15 @@ void LCD_1IN54_test(void)
     // /* show bmp */
     printf("show bmp\r\n");
 
-    GUI_ReadBmp("./pic/test1.bmp");
-    LCD_1IN54_Display(BlackImage);
-    DEV_Delay_ms(100000);
+    for (int i = 1; i <= 2; i++)
+    {                      // Assuming you have test1.bmp and test2.bmp
+        char filename[20]; // Adjust the size according to your filename length
+        snprintf(filename, sizeof(filename), "./pic/test%d.bmp", i);
 
-    GUI_ReadBmp("./pic/test2.bmp");
-    LCD_1IN54_Display(BlackImage);
-    DEV_Delay_ms(100000);
+        GUI_ReadBmp(filename);
+        LCD_1IN54_Display(BlackImage);
+        DEV_Delay_ms(100000);
+    }
 
     /* Module Exit */
     free(BlackImage);
