@@ -45,33 +45,36 @@ void LCD_1IN54_test(void)
     struct dirent *ent;
     char folder_path[] = "./pic/";
 
-    if ((dir = opendir(folder_path)) != NULL)
+    while (1) // Infinite loop to continuously display BMP files
     {
-        int i = 0;
-        while ((ent = readdir(dir)) != NULL)
+        if ((dir = opendir(folder_path)) != NULL)
         {
-            if (ent->d_type == DT_REG && strstr(ent->d_name, ".bmp") != NULL && strstr(ent->d_name, "test") != NULL)
+            int i = 0;
+            while ((ent = readdir(dir)) != NULL)
             {
-                char filename[100];
-                snprintf(filename, sizeof(filename), "%s%s", folder_path, ent->d_name);
+                if (ent->d_type == DT_REG && strstr(ent->d_name, ".bmp") != NULL && strstr(ent->d_name, "test") != NULL)
+                {
+                    char filename[100];
+                    snprintf(filename, sizeof(filename), "%s%s", folder_path, ent->d_name);
 
-                GUI_ReadBmp(filename);
-                LCD_1IN54_Display(BlackImage);
-                DEV_Delay_ms(5000);
-                i++;
+                    GUI_ReadBmp(filename);
+                    LCD_1IN54_Display(BlackImage);
+                    DEV_Delay_ms(5000);
+                    i++;
+                }
+            }
+            closedir(dir);
+
+            if (i == 0)
+            {
+                printf("No BMP files found in %s\r\n", folder_path);
             }
         }
-        closedir(dir);
-
-        if (i == 0)
+        else
         {
-            printf("No BMP files found in %s\r\n", folder_path);
+            perror("Unable to open directory");
+            exit(EXIT_FAILURE);
         }
-    }
-    else
-    {
-        perror("Unable to open directory");
-        exit(EXIT_FAILURE);
     }
 
     /* Module Exit */
