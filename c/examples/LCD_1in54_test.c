@@ -58,9 +58,7 @@ void LCD_1IN54_test(void)
                     snprintf(filename, sizeof(filename), "%s%s", folder_path, ent->d_name);
 
                     GUI_ReadBmp(filename);
-                    int startX = (LCD_1IN54_WIDTH - 240) / 2;
-                    int startY = (LCD_1IN54_HEIGHT - 240) / 2;
-                    LCD_1IN54_DisplayAt(BlackImage, startX, startY, 240, 240);
+                    LCD_1IN54_Display(BlackImage);
                     DEV_Delay_ms(5000);
                     i++;
                 }
