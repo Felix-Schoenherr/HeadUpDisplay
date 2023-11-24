@@ -45,6 +45,10 @@ void LCD_1IN54_test(void)
     struct dirent *ent;
     char folder_path[] = "./pic/";
 
+    GUI_ReadBmp("./pic/LCD_1inch54.bmp");
+    LCD_1IN54_Display(BlackImage);
+    DEV_Delay_ms(20000);
+
     while (1) // Infinite loop to continuously display BMP files
     {
         if ((dir = opendir(folder_path)) != NULL)
