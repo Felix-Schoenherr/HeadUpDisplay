@@ -36,7 +36,7 @@ void LCD_1IN54_test(void)
     // /*1.Create a new image cache named IMAGE_RGB and fill it with white*/
     Paint_NewImage(BlackImage, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, 0, WHITE, 16);
     Paint_Clear(WHITE);
-    // Paint_SetRotate(ROTATE_90);
+    Paint_SetRotate(ROTATE_90);
 
     // /* show bmp */
     printf("show bmp\r\n");
